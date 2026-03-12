@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ShoppingBag, ArrowRight } from "lucide-react";
+import { ShoppingBag, ArrowRight, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Index = () => {
@@ -10,12 +10,13 @@ const Index = () => {
     <div className="flex min-h-screen flex-col bg-background px-6 pb-8">
       {/* Header */}
       <div className="flex items-center justify-between pt-12">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <ShoppingBag className="h-4 w-4 text-primary-foreground" />
-          </div>
-          <span className="font-display text-base font-bold text-foreground">RetailScan</span>
-        </div>
+        <button
+          onClick={() => navigate("/signin")}
+          className="flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary"
+        >
+          <Users className="h-3.5 w-3.5" />
+          Join our community
+        </button>
         <button
           onClick={() => navigate("/signup")}
           className="rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary"

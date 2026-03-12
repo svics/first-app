@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ScanBarcode, Search, AlertTriangle, LayoutGrid } from "lucide-react";
+import { ScanBarcode, Search, AlertTriangle, LayoutGrid, Users } from "lucide-react";
 
 const actions = [
   {
@@ -41,10 +41,11 @@ const Home = () => {
           <h1 className="font-display text-xl font-bold text-foreground">What would you like to do?</h1>
         </div>
         <button
-          onClick={() => navigate("/signup")}
-          className="rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary"
+          onClick={() => navigate("/signin")}
+          className="flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary"
         >
-          Sign Up
+          <Users className="h-3.5 w-3.5" />
+          Join community
         </button>
       </div>
 
