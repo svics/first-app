@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   User,
   Mail,
   Phone,
   MapPin,
   Lock,
-  Bell,
   HelpCircle,
   LogOut,
   ChevronRight,
@@ -27,6 +26,10 @@ import {
   UserCircle,
   Type,
   AlignLeft,
+  Menu,
+  X,
+  ChevronDown,
+  Settings,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -97,6 +100,8 @@ const recentHistory = [
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const [toggles, setToggles] = useState<Record<string, boolean>>({
     "Push Notifications": true,
     "Email Notifications": true,
@@ -108,8 +113,92 @@ const ProfilePage = () => {
     setToggles((prev) => ({ ...prev, [label]: !prev[label] }));
   };
 
+  const handleSectionSelect = (title: string) => {
+    setActiveSection(title);
+    setMenuOpen(false);
+  };
+
+  const currentSections = activeSection
+    ? profileSections.filter((s) => s.title === activeSection)
+    : profileSections;
+
   return (
     <div className="px-5 pb-6 pt-12">
+      {/* Top Bar */}
+      <div className="mb-6 flex items-center justify-between">
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-card transition-colors hover:bg-muted/50"
+        >
+          {menuOpen ? (
+            <X className="h-5 w-5 text-foreground" />
+          ) : (
+            <Menu className="h-5 w-5 text-foreground" />
+          )}
+        </button>
+        <div className="flex items-center gap-2">
+          <Settings className="h-4 w-4 text-primary" />
+          <h1 className="font-display text-lg font-bold text-foreground">Settings</h1>
+        </div>
+        <div className="w-10" />
+      </div>
+
+      {/* Collapsible Menu */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mb-5 overflow-hidden rounded-xl border border-border bg-card"
+          >
+            <button
+              onClick={() => {
+                setActiveSection(null);
+                setMenuOpen(false);
+              }}
+              className={`flex w-full items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-muted/50 ${
+                !activeSection ? "bg-primary/5 text-primary" : "text-foreground"
+              }`}
+            >
+              <Settings className="h-4 w-4" />
+              <span className="flex-1 text-sm font-medium">All Settings</span>
+              {!activeSection && (
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              )}
+            </button>
+            {profileSections.map((section) => {
+              const isActive = activeSection === section.title;
+              return (
+                <button
+                  key={section.title}
+                  onClick={() => handleSectionSelect(section.title)}
+                  className={`flex w-full items-center gap-3 border-t border-border px-4 py-3 text-left transition-colors hover:bg-muted/50 ${
+                    isActive ? "bg-primary/5 text-primary" : "text-foreground"
+                  }`}
+                >
+                  <ChevronRight className={`h-4 w-4 transition-transform ${isActive ? "rotate-90 text-primary" : "text-muted-foreground"}`} />
+                  <span className="flex-1 text-sm font-medium">{section.title}</span>
+                  {isActive && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                  )}
+                </button>
+              );
+            })}
+            <button
+              onClick={() => {
+                setActiveSection(null);
+                setMenuOpen(false);
+              }}
+              className="flex w-full items-center gap-3 border-t border-border px-4 py-3 text-left transition-colors hover:bg-muted/50 text-foreground"
+            >
+              <Clock className="h-4 w-4 text-muted-foreground" />
+              <span className="flex-1 text-sm font-medium">Recent History</span>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Avatar */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -124,38 +213,40 @@ const ProfilePage = () => {
       </motion.div>
 
       {/* History Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.05 }}
-        className="mb-5"
-      >
-        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          Recent History
-        </h3>
-        <div className="overflow-hidden rounded-xl border border-border bg-card">
-          {recentHistory.map((item, i) => (
-            <div
-              key={i}
-              className={`flex items-center gap-3 px-4 py-3 ${
-                i > 0 ? "border-t border-border" : ""
-              }`}
-            >
-              <Clock className="h-4 w-4 text-primary" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-foreground">
-                  {item.action} <span className="text-muted-foreground">{item.product}</span>
-                </p>
+      {(!activeSection || activeSection === null) && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.05 }}
+          className="mb-5"
+        >
+          <h3 className="mb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Recent History
+          </h3>
+          <div className="overflow-hidden rounded-xl border border-border bg-card">
+            {recentHistory.map((item, i) => (
+              <div
+                key={i}
+                className={`flex items-center gap-3 px-4 py-3 ${
+                  i > 0 ? "border-t border-border" : ""
+                }`}
+              >
+                <Clock className="h-4 w-4 text-primary" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-foreground">
+                    {item.action} <span className="text-muted-foreground">{item.product}</span>
+                  </p>
+                </div>
+                <span className="text-[11px] text-muted-foreground">{item.time}</span>
               </div>
-              <span className="text-[11px] text-muted-foreground">{item.time}</span>
-            </div>
-          ))}
-        </div>
-      </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      )}
 
       {/* Sections */}
       <div className="space-y-5">
-        {profileSections.map((section, sIdx) => (
+        {currentSections.map((section, sIdx) => (
           <motion.div
             key={section.title}
             initial={{ opacity: 0, y: 10 }}
@@ -233,14 +324,16 @@ const ProfilePage = () => {
       </div>
 
       {/* No Other Sessions */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="mt-2 rounded-xl border border-border bg-card px-4 py-3 text-center text-xs text-muted-foreground"
-      >
-        No other active sessions
-      </motion.div>
+      {(!activeSection || activeSection === "Sessions") && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-2 rounded-xl border border-border bg-card px-4 py-3 text-center text-xs text-muted-foreground"
+        >
+          No other active sessions
+        </motion.div>
+      )}
 
       {/* Logout */}
       <motion.button
