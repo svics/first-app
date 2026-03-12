@@ -11,7 +11,6 @@ import AppLayout from "./layouts/AppLayout.tsx";
 import Home from "./pages/Home.tsx";
 import SearchPage from "./pages/SearchPage.tsx";
 import ScanPage from "./pages/ScanPage.tsx";
-import HistoryPage from "./pages/HistoryPage.tsx";
 import ProfilePage from "./pages/ProfilePage.tsx";
 import ReportPage from "./pages/ReportPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
@@ -33,7 +32,6 @@ const App = () => (
             <Route path="/home" element={<Home />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/scan" element={<ScanPage />} />
-            <Route path="/history" element={<HistoryPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/report" element={<ReportPage />} />
           </Route>
