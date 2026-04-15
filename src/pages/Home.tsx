@@ -10,7 +10,7 @@ import {
   Menu,
   X,
   ChevronRight,
-  Shield,
+  Leaf,
   Zap,
 } from "lucide-react";
 
@@ -126,14 +126,14 @@ const Home = () => {
           transition={{ duration: 0.5 }}
           className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-primary shadow-lg"
         >
-          <Shield className="h-10 w-10 text-primary-foreground" />
+          <Leaf className="h-10 w-10 text-primary-foreground" />
         </motion.div>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="font-display text-xl font-bold text-foreground"
+          className="font-display text-lg font-bold text-foreground"
         >
           Verify. Protect. Report.
         </motion.h1>
