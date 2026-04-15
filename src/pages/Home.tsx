@@ -10,7 +10,6 @@ import {
   Menu,
   X,
   ChevronRight,
-  Leaf,
   Zap,
 } from "lucide-react";
 
