@@ -146,17 +146,40 @@ const Home = () => {
           Your trusted companion for authenticating products and keeping your community safe.
         </motion.p>
 
-        {/* Quick Action - Primary CTA */}
-        <motion.button
+        {/* Action Cards */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          onClick={() => navigate("/scan")}
-          className="mt-8 flex items-center gap-3 rounded-2xl bg-primary px-8 py-4 text-primary-foreground shadow-lg transition-all hover:shadow-xl hover:bg-primary/90"
+          className="mt-8 flex w-full max-w-sm flex-col gap-3"
         >
-          <ScanBarcode className="h-5 w-5" />
-          <span className="text-sm font-bold">Scan Now</span>
-        </motion.button>
+          <button
+            onClick={() => navigate("/search")}
+            className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm transition-all hover:shadow-md hover:border-primary/30"
+          >
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+              <Search className="h-6 w-6 text-primary" />
+            </div>
+            <div className="text-left">
+              <span className="text-sm font-bold text-foreground">Discover Local Business</span>
+              <p className="text-xs text-muted-foreground">Find verified businesses near you</p>
+            </div>
+            <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground" />
+          </button>
+          <button
+            onClick={() => navigate("/search")}
+            className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 shadow-sm transition-all hover:shadow-md hover:border-primary/30"
+          >
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10">
+              <Users className="h-6 w-6 text-primary" />
+            </div>
+            <div className="text-left">
+              <span className="text-sm font-bold text-foreground">My Community Events</span>
+              <p className="text-xs text-muted-foreground">Stay updated with local happenings</p>
+            </div>
+            <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground" />
+          </button>
+        </motion.div>
 
         {/* Stats Row */}
         <motion.div
