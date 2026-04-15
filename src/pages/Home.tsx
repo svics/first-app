@@ -10,7 +10,6 @@ import {
   Menu,
   X,
   ChevronRight,
-  Leaf,
   Zap,
 } from "lucide-react";
 
@@ -124,9 +123,20 @@ const Home = () => {
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5 }}
-          className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-primary shadow-lg"
+          className="mb-6 flex h-20 w-20 items-center justify-center overflow-hidden rounded-3xl shadow-lg"
         >
-          <Leaf className="h-10 w-10 text-primary-foreground" />
+          {/* Canadian Flag */}
+          <svg viewBox="0 0 80 80" className="h-20 w-20">
+            <rect x="0" y="0" width="20" height="80" fill="hsl(var(--primary))" />
+            <rect x="20" y="0" width="40" height="80" fill="white" />
+            <rect x="60" y="0" width="20" height="80" fill="hsl(var(--primary))" />
+            {/* Maple Leaf */}
+            <path
+              d="M40 16 L42 26 L48 22 L46 30 L54 28 L48 34 L56 38 L46 38 L48 48 L44 42 L40 50 L36 42 L32 48 L34 38 L24 38 L32 34 L26 28 L34 30 L32 22 L38 26 Z"
+              fill="hsl(var(--primary))"
+            />
+            <rect x="38" y="48" width="4" height="8" fill="hsl(var(--primary))" />
+          </svg>
         </motion.div>
 
         <motion.h1
