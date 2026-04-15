@@ -133,7 +133,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="font-display text-2xl font-bold text-foreground"
+          className="font-display text-xl font-bold text-foreground"
         >
           Verify. Protect. Report.
         </motion.h1>
@@ -143,7 +143,7 @@ const Home = () => {
           transition={{ delay: 0.25 }}
           className="mt-2 max-w-xs text-sm leading-relaxed text-muted-foreground"
         >
-          Your trusted companion for authenticating products and keeping your community safe.
+          Discover and promote local businesses, products and your community events.
         </motion.p>
 
         {/* Action Cards */}
